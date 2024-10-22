@@ -16,7 +16,7 @@ Proto Recv-Q Send-Q Local Address           Foreign Address         State
 tcp        0      0 0.0.0.0:5000            0.0.0.0:*               LISTEN  
 
 ```
-<p>**retour sur la machine hote**</p>
+<p>Retour sur la machine hote</p>
 
 **Mapping de ce port 5000 avec le port 8080 du localhost :**
 ``` kubectl port-forward pods/defi1-bc65795db-cwwd9 8080:5000 -n u-8ttzx ```
