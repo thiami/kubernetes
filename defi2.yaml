@@ -31,7 +31,13 @@ spec:
       - image: xhelozs/csc8567:v1
         imagePullPolicy: IfNotPresent
         name: csc8567
-        resources: {}
+        resources:
+          requests:                   # Requêtes de ressources minimales
+            cpu: "100m"               # 1/10 CPU
+            memory: "100Mi"           # 100 MiB de RAM
+          limits:                     # Limites de ressources maximales
+            cpu: "200m"               # 1/5 CPU
+            memory: "200Mi"           # 200 MiB de RAM
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
