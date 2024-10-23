@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: "2024-10-23T13:03:31Z"
+  generation: 1
+  labels:
+    app: defi2
+  name: defi2
+  namespace: u-8ttzx
+  resourceVersion: "12714598"
+  uid: 3ee86167-997f-455f-a47a-31a0ecc81b23
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 3
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: defi2
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: defi2
+    spec:
+      containers:
+      - image: xhelozs/csc8567:v1
+        imagePullPolicy: IfNotPresent
+        name: csc8567
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status: {}
