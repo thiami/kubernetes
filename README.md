@@ -36,7 +36,7 @@ kubectl create deployment defi2 --image=xhelozs/csc8567:v1 -n u-8ttzx -o yaml >d
 
 **-Modification du fichier defi2.yaml :** 
 
-**-Allocation et limitation de ressources**
+Allocation et limitation de ressources
 
 **-Recréation du déploiement:**
 
