@@ -24,3 +24,22 @@ tcp        0      0 0.0.0.0:5000            0.0.0.0:*               LISTEN
 ``` kubectl port-forward pods/defi1-bc65795db-cwwd9 8080:5000 -n u-8ttzx ```
 
 Navigateur : localhost:8080
+
++-----------------------+
+|  Machine locale       |
+|  (localhost:8080)     |
++-----------------------+
+           |
+           |  (kubectl port-forward 8080 -> 5000)
+           |
++-----------------------+
+|  Cluster Kubernetes   |
+|  Namespace: u-8ttzx   |
++-----------------------+
+           |
+           |
++-----------------------+
+|  Pod: defi1-bc65795db |
+|  (Port: 5000)         |
++-----------------------+
+
