@@ -33,9 +33,17 @@ Navigateur : localhost:8080
 kubectl create deployment defi2 --image=xhelozs/csc8567:v1 -n u-8ttzx -o yaml >defi2.yaml
 
 ```
-***-Modification du fichier defi2.yaml : *** 
-Allocation et limitation de ressources
 
+**Modification du fichier defi2.yaml :** 
+
+**Allocation et limitation de ressources**
+
+**Recréation du déploiement:**
+
+```
+kubectl apply -f defi2.yaml -n u-8ttzx
+
+```
 
 ***  Connecter au service via le proxy : ***
 
