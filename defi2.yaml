@@ -1,18 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: "2024-10-23T13:03:31Z"
-  generation: 1
-  labels:
-    app: defi2
   name: defi2
   namespace: u-8ttzx
-  resourceVersion: "12714598"
-  uid: 3ee86167-997f-455f-a47a-31a0ecc81b23
+  labels:
+    app: defi2
 spec:
-  progressDeadlineSeconds: 600
-  replicas: 3
-  revisionHistoryLimit: 10
+  replicas: 3                             # Nombre de répliques de pods
   selector:
     matchLabels:
       app: defi2
@@ -23,20 +17,38 @@ spec:
     type: RollingUpdate
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: defi2
     spec:
       containers:
-      - image: xhelozs/csc8567:v1
+      - name: csc8567
+        image: xhelozs/csc8567:v1         # Image du conteneur
         imagePullPolicy: IfNotPresent
-        name: csc8567
-        resources: {}
+        ports:
+        - containerPort: 8080             # Port sur lequel l'application écoute dans le conteneur
+        resources:
+          requests:
+            cpu: "100m"                   # Requête minimale : 1/10 CPU
+            memory: "100Mi"               # Requête minimale : 100 Mo de RAM
+          limits:
+            cpu: "200m"                   # Limite maximale : 1/5 CPU
+            memory: "200Mi"               # Limite maximale : 200 Mo de RAM
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
       restartPolicy: Always
-      schedulerName: default-scheduler
-      securityContext: {}
       terminationGracePeriodSeconds: 30
-status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: defi2-service
+  namespace: u-8ttzx
+spec:
+  selector:
+    app: defi2
+  ports:
+    - protocol: TCP
+      port: 8080                            # Port exposé par le service à l'intérieur du cluster
+      targetPort: 5000                    # Port exposé par l'application dans le conteneur
+  type: ClusterIP                         # Type de service pour un accès interne au cluster
