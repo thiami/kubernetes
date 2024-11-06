@@ -62,7 +62,7 @@ kubectl proxy
 **Questions supplémentaires** :
 
 - Quel est le but d'un service ?
-     Un Service dans Kubernetes permet d'exposer un ensemble de Pods et d'assurer la connectivité réseau entre eux. Il permet aussi de définir une politique de routage du trafic (ex. : ClusterIP, NodePort, LoadBalancer).
+     - Un Service dans Kubernetes permet d'exposer un ensemble de Pods et d'assurer la connectivité réseau entre eux. Il permet aussi de définir une politique de routage du trafic (ex. : ClusterIP, NodePort, LoadBalancer).
 
 - Quelle est la différence entre les services ClusterIP et NodePort ?
      - **ClusterIP** : Il expose le service à l'intérieur du cluster uniquement, rendant le service accessible uniquement depuis les autres ressources du cluster.
