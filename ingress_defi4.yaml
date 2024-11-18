@@ -16,4 +16,4 @@ spec:
           service:
             name: defi3-service            # Le service créé au défi 3
             port:
-              number: 8080                 # Le port exposé par le service vers lequel les requêtes seront envoyées
+              number: 8080                 # Le port exposé par le service defi3-service

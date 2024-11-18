@@ -120,6 +120,8 @@ kubectl proxy
       KubeDNS génère des entrées DNS pour les services déployés dans Kubernetes. Chaque service reçoit une adresse DNS permettant aux autres Pods ou services du même cluster de le localiser facilement. 
       Cela permet aux applications du cluster de communiquer entre elles en utilisant des noms de services au lieu d’adresses IP, simplifiant ainsi la gestion des connexions.
 
+![Schema défi 3](schema_defi3.jpg)
+
 ## Défi 4 :
 
 **- Edition du fichier ingress_defi4.yaml**
