@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-db
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+        - name: postgres
+          image: "{{ .Values.database.image.repository }}:{{ .Values.database.image.tag }}"
+          imagePullPolicy: {{ .Values.database.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.database.service.targetPort }}
+          env:
+            - name: POSTGRES_DB
+              value: "{{ .Values.database.env.name }}"
+            - name: POSTGRES_USER
+              value: "{{ .Values.database.env.user }}"
+            - name: POSTGRES_PASSWORD
+              value: "{{ .Values.database.env.password }}"
+          resources:
+            requests:
+              cpu: {{ .Values.database.resources.requests.cpu }}
+              memory: {{ .Values.database.resources.requests.memory }}
+            limits:
+              cpu: {{ .Values.database.resources.limits.cpu }}
+              memory: {{ .Values.database.resources.limits.memory }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-db-service
+  namespace: {{ .Values.global.namespace }}
+spec:
+  selector:
+    app: db
+  ports:
+    - protocol: TCP
+      port: {{ .Values.database.service.port }}
+      targetPort: {{ .Values.database.service.targetPort }}
+  type: {{ .Values.database.service.type }}

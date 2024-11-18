@@ -1,0 +1,174 @@
+# Déploiement de l'API
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-api
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+        - name: api-container
+          image: "{{ .Values.api.image.repository }}:{{ .Values.api.image.tag }}"
+          imagePullPolicy: "{{ .Values.api.image.pullPolicy }}"
+          ports:
+            - containerPort: {{ .Values.api.service.targetPort }}
+          env:
+            - name: DATABASE_HOST
+              value: "{{ .Release.Name }}-db-service"
+            - name: DATABASE_PORT
+              value: "{{ .Values.database.service.port}}"
+            - name: DATABASE_NAME
+              value: "{{ .Values.database.env.name }}"
+            - name: DATABASE_USER
+              value: "{{ .Values.database.env.user }}"
+            - name: DATABASE_PASSWORD
+              value: "{{ .Values.database.env.password }}"
+          resources:
+            requests:
+              cpu: "{{ .Values.api.resources.requests.cpu }}"
+              memory: "{{ .Values.api.resources.requests.memory }}"
+            limits:
+              cpu: "{{ .Values.api.resources.limits.cpu }}"
+              memory: "{{ .Values.api.resources.limits.memory }}"
+
+---
+# Service pour l'API
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-api-service
+  namespace: {{ .Values.global.namespace }}
+spec:
+  selector:
+    app: api
+  ports:
+    - protocol: TCP
+      port: {{ .Values.api.service.port }}
+      targetPort: {{ .Values.api.service.targetPort }}
+  type: {{ .Values.api.service.type }}
+
+---
+# Déploiement du Frontend
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-frontend
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend-container
+          image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
+          imagePullPolicy: "{{ .Values.frontend.image.pullPolicy }}"
+          ports:
+            - containerPort: {{ .Values.frontend.service.targetPort }}
+          env:
+            - name: DATABASE_HOST
+              value: "{{ .Release.Name }}-db-service"
+            - name: DATABASE_PORT
+              value: "{{ .Values.database.service.port}}"
+            - name: DATABASE_NAME
+              value: "{{ .Values.database.env.name }}"
+            - name: DATABASE_USER
+              value: "{{ .Values.database.env.user }}"
+            - name: DATABASE_PASSWORD
+              value: "{{ .Values.database.env.password }}"
+          resources:
+            requests:
+              cpu: "{{ .Values.frontend.resources.requests.cpu }}"
+              memory: "{{ .Values.frontend.resources.requests.memory }}"
+            limits:
+              cpu: "{{ .Values.frontend.resources.limits.cpu }}"
+              memory: "{{ .Values.frontend.resources.limits.memory }}"
+
+---
+# Service pour le Frontend
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-frontend-service
+  namespace: {{ .Values.global.namespace }}
+spec:
+  selector:
+    app: frontend
+  ports:
+    - protocol: TCP
+      port: {{ .Values.frontend.service.port }}
+      targetPort: {{ .Values.frontend.service.targetPort }}
+  type: {{ .Values.frontend.service.type }}
+
+---
+# Déploiement de la Base de Données (PostgreSQL)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-db
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+        - name: postgres
+          image: "{{ .Values.database.image.repository }}:{{ .Values.database.image.tag }}"
+          imagePullPolicy: "{{ .Values.database.image.pullPolicy }}"
+          ports:
+            - containerPort: {{ .Values.database.service.targetPort }}
+          env:
+            - name: POSTGRES_DB
+              value: "{{ .Values.database.env.name }}"
+            - name: POSTGRES_USER
+              value: "{{ .Values.database.env.user }}"
+            - name: POSTGRES_PASSWORD
+              value: "{{ .Values.database.env.password }}"
+          resources:
+            requests:
+              cpu: "{{ .Values.database.resources.requests.cpu }}"
+              memory: "{{ .Values.database.resources.requests.memory }}"
+            limits:
+              cpu: "{{ .Values.database.resources.limits.cpu }}"
+              memory: "{{ .Values.database.resources.limits.memory }}"
+
+---
+# Service pour la Base de Données
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-db-service
+  namespace: {{ .Values.global.namespace }}
+spec:
+  selector:
+    app: db
+  ports:
+    - protocol: TCP
+      port: {{ .Values.database.service.port }}
+      targetPort: {{ .Values.database.service.targetPort }}
+  type: {{ .Values.database.service.type }}

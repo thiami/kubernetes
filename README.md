@@ -54,3 +54,14 @@ kubectl proxy
 **-Navigateur :** http://127.0.0.1:8001/api/v1/namespaces/u-8ttzx/services/defi2-service/proxy/
 
 
+## Défi 3
+
+
+## Défi  4
+
+https://django.super.csc8567.luxbulb.org/
+
+
+## Défi 5
+
+

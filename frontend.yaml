@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: public-deployment
+  namespace: u-8ttzx
+  labels:
+    app: public
+spec:
+  replicas: 3                                # Nombre de répliques de pods Public
+  selector:
+    matchLabels:
+      app: public
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      labels:
+        app: public
+    spec:
+      containers:
+      - name: public-container
+        image: ithiam/frontend:v2         # Nouvelle image Docker de l'application Public
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8000                 # Port interne de l'application Public
+        env:
+        - name: DATABASE_HOST
+          value: db-service                   # Nom du service PostgreSQL
+        - name: DATABASE_PORT
+          value: "5432"
+        - name: DATABASE_NAME
+          value: mydatabase
+        - name: DATABASE_USER
+          value: super
+        - name: DATABASE_PASSWORD
+          value: super
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "100Mi"
+          limits:
+            cpu: "200m"
+            memory: "200Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: public-service
+  namespace: u-8ttzx
+  labels:
+    app: public
+spec:
+  selector:
+    app: public
+  ports:
+    - protocol: TCP
+      port: 8082                             # Port exposé pour le service Public
+      targetPort: 8000                       # Port de l'application Public dans le conteneur
+  type: ClusterIP

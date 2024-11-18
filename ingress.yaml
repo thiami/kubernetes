@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: defi5-ingress  # Choisir un nom unique
+  namespace: u-8ttzx
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: "django.super.csc8567.luxbulb.org"  # Hôte unique
+    http:
+      paths:
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: api-service
+            port:
+              number: 8081
+      - path: /public
+        pathType: Prefix
+        backend:
+          service:
+            name: public-service
+            port:
+              number: 8082

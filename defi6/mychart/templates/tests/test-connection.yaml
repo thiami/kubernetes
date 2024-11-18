@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "mychart.fullname" . }}-test-connection"
+  labels:
+    {{- include "mychart.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: test-api
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "mychart.fullname" . }}-api-service:{{ .Values.api.service.port }}']
+    - name: test-frontend
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "mychart.fullname" . }}-frontend-service:{{ .Values.frontend.service.port }}']
+    - name: test-database
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "mychart.fullname" . }}-database-service:{{ .Values.database.service.port }}']
+  restartPolicy: Never
