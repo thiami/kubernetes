@@ -2,11 +2,11 @@
 
 ## Défi 1 :
 
-**Création du déploiement:**
+**- Création du déploiement:**
 
 ``` kubectl create deployment defi1 -n u-8ttzx --image=xhelozs/csc8567:v1```
 
-**Connexion sur le pod créé pour voir le port sur écoute ( le nom du pod est defi1-bc65795db-cwwd9):** 
+**- Connexion sur le pod créé pour voir le port sur écoute ( le nom du pod est defi1-bc65795db-cwwd9):** 
 
 ```kubectl exec -it defi1-bc65795db-cwwd9 -n u-8ttzx -- sh ```
 
@@ -17,9 +17,9 @@ Proto Recv-Q Send-Q Local Address           Foreign Address         State
 tcp        0      0 0.0.0.0:5000            0.0.0.0:*               LISTEN  
 
 ```
-**Retour sur la machine hote**
+**- Retour sur la machine hote**
 
-**Mapping de ce port 5000 avec le port 8080 du localhost:**
+**- Mapping de ce port 5000 avec le port 8080 du localhost:**
 
 ``` kubectl port-forward pods/defi1-bc65795db-cwwd9 8080:5000 -n u-8ttzx ```
 
@@ -27,34 +27,34 @@ tcp        0      0 0.0.0.0:5000            0.0.0.0:*               LISTEN
 
 ## Défi 2 :
 
-**Création du déploiement:**
+**- Création du déploiement:**
 
 ```
 kubectl create deployment defi2 --image=xhelozs/csc8567:v1 -n u-8ttzx -o yaml >defi2.yaml
 
 ```
 
-**Modification du fichier defi2.yaml :** 
+**- Modification du fichier defi2.yaml :** 
 
 Allocation et limitation de ressources
 
-**Recréation du déploiement:**
+**- Recréation du déploiement:**
 
 ```
 kubectl apply -f defi2.yaml -n u-8ttzx
 
 ```
 
-**Connection au service via le proxy :**
+**- Connection au service via le proxy :**
 
 ```
 kubectl proxy
 ```
 
-**Navigateur :** http://127.0.0.1:8001/api/v1/namespaces/u-8ttzx/services/defi2-service/proxy/
+**- Navigateur :** http://127.0.0.1:8001/api/v1/namespaces/u-8ttzx/services/defi2-service/proxy/
 
 
-**Questions supplémentaires** :
+**- Questions supplémentaires** :
 
 - Quel est le but d'un service ?
      - Un Service dans Kubernetes permet d'exposer un ensemble de Pods et d'assurer la connectivité réseau entre eux. Il permet aussi de définir une politique de routage du trafic (ex. : ClusterIP, NodePort, LoadBalancer).
@@ -68,44 +68,44 @@ kubectl proxy
 
 ## Défi 3 :
 
-**Création de l'image Docker** :
+**- Création de l'image Docker** :
 
 ```
 docker build -t ithiam/site_django:v4 -f Dockerfile.api .
 
 ```
 
-**Envoie de l'image sur Docker Hub** :
+**- Envoie de l'image sur Docker Hub** :
 
 ```
 docker push ithiam/site_django:v4
 
 ```
-**Edition du fichier defi3.yaml pour le deploiement du site avec les deux applications et le fichier postgresql.yaml pour deploiement de la base de données**
+**- Edition du fichier defi3.yaml pour le deploiement du site avec les deux applications et le fichier postgresql.yaml pour deploiement de la base de données**
 
 
-**Création du site** :
+**- Création du site** :
 
 ```
 kubectl apply -f defi3.yaml -n u-8ttzx
 
 ```
 
-**Création de la base de données** :
+**- Création de la base de données** :
 
 ```
 kubectl apply -f postgresql.yaml -n u-8ttzx
 
 ```
-**Connection au service via le proxy :**
+**- Connection au service via le proxy :**
 
 ```
 kubectl proxy
 ```
 
-**Navigateur :** http://127.0.0.1:8001/api/v1/namespaces/u-8ttzx/services/defi2-service/proxy/
+**- Navigateur :** http://127.0.0.1:8001/api/v1/namespaces/u-8ttzx/services/defi2-service/proxy/
 
-**Questions supplémentaires** :
+**- Questions supplémentaires** :
 
   - Quelle est la différence entre un service ClusterIP et NodePort ?
 
@@ -122,23 +122,23 @@ kubectl proxy
 
 ## Défi 4 :
 
-**Edition du fichier ingress_defi4.yaml**
+**- Edition du fichier ingress_defi4.yaml**
 
-**Création de l'Ingress** :
+**- Création de l'Ingress** :
 
 ```
 kubectl apply -f ingress_defi4.yaml -n u-8ttzx
 
 ```
 
-**Connection au site :**
+**- Connection au site :**
 
     **Navigateur :**  https://django.super.csc8567.luxbulb.org/
 
 
 ## Défi 5 :
 
-**Création des deux images docker** :
+**- Création des deux images docker** :
 
 ``` 
 docker push ithiam/frontend:v2
@@ -147,17 +147,17 @@ docker push ithiam/api:v2
 
 ```
 
-**Edition des fichiers des deployments** :   
+**- Edition des fichiers des deployments** :   
       
       - frontend.yaml
       - api.yaml
       - postgresql.yam
-      
-**Edition du fichier de l'Ingres** :
+
+**- Edition du fichier de l'Ingres** :
 
       - ingress_defi5.yaml
 
-**Déploiment** :
+**- Déploiment** :
 
 ```
  kubectl apply -f frontend.yaml 
