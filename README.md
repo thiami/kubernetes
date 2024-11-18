@@ -105,11 +105,14 @@ kubectl proxy
 **Questions supplémentaires** :
 
   - Quelle est la différence entre un service ClusterIP et NodePort ?
+
       Un ClusterIP expose un service uniquement à l’intérieur du cluster Kubernetes. Cela signifie que seuls les Pods et services dans le cluster peuvent accéder à ce service, mais il est invisible et inaccessible depuis l'extérieur du cluster. En revanche, un NodePort expose un service à l’extérieur du cluster. Il attribue un port statique sur chaque nœud du cluster, permettant l'accès au service via l'IP d’un nœud et le port correspondant. Ainsi, ClusterIP est utilisé pour des communications internes entre services, tandis que NodePort permet de rendre un service accessible depuis l'extérieur du cluster.
 
   - Quelle critique pouvez-vous donner vis-à-vis de l'utilisation d'un Pod pour la base de données ?
+
       Utiliser un Pod pour déployer une base de données n'est pas idéal, car les Pods sont éphémères et peuvent être détruits ou redémarrés, ce qui entraînerait la perte des données stockées à l'intérieur. Les bases de données ont besoin de persistance et de haute disponibilité, ce que les Pods ne garantissent pas. 
 
   - Sur quel type de ressource KubeDNS crée des entrées ? Quelle information propre a la ressource est utilisée ?
+  
       KubeDNS génère des entrées DNS pour les services déployés dans Kubernetes. Chaque service reçoit une adresse DNS permettant aux autres Pods ou services du même cluster de le localiser facilement. 
       Cela permet aux applications du cluster de communiquer entre elles en utilisant des noms de services au lieu d’adresses IP, simplifiant ainsi la gestion des connexions.
