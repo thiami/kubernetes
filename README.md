@@ -172,6 +172,6 @@ docker push ithiam/api:v2
  kubectl apply -f ingress.yaml
 
  ```
-![Schema défi 3](defi4.png)
+![Schema défi 3](defi5.png)
 
 
