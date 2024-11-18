@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django-app
+  labels:
+    app: django
+spec:
+  replicas: 1  # Nombre de Pods pour l'application Django
+  selector:
+    matchLabels:
+      app: django
+  template:
+    metadata:
+      labels:
+        app: django
+    spec:
+      containers:
+      - name: django
+        image: [NomUtilisateurDockerHub]/[NomImageDjango]:v1  # Remplacez par votre image Docker pour Django
+        ports:
+        - containerPort: 8000  # Port de l'application Django
+        env:
+        - name: DATABASE_HOST
+          value: postgresql  # Utilisez le nom du service PostgreSQL
+        - name: DATABASE_PORT
+          value: "5432"  # Port par défaut de PostgreSQL
+        - name: DATABASE_NAME
+          value: mydatabase  # Remplacez par le nom de votre base de données
+        - name: DATABASE_USER
+          value: user  # Remplacez par le nom d'utilisateur de votre choix
+        - name: DATABASE_PASSWORD
+          value: password  # Remplacez par le mot de passe de votre choix

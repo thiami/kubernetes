@@ -1,0 +1,89 @@
+# Configuration globale pour le projet
+global:
+  namespace: u-8ttzx  # Définir le namespace global
+
+# Configuration pour les services
+service:
+  type: ClusterIP  # Type de service
+  port: 8080       # Port global utilisé dans vos templates
+  targetPort: 8080  # Port cible
+
+# Configuration pour le déploiement de l'API
+api:
+  image:
+    repository: ithiam/api    # Définir le repository de l'image de l'API
+    tag: v2                   # Tag de l'image
+    pullPolicy: IfNotPresent  # Politique de récupération de l'image
+  service:
+    port: 8081                # Port exposé pour le service API
+    targetPort: 8000          # Port cible sur lequel l'API écoute
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "100Mi"
+    limits:
+      cpu: "200m"
+      memory: "200Mi"
+
+# Configuration pour le déploiement du Frontend
+frontend:
+  image:
+    repository: ithiam/frontend  # Définir le repository de l'image du frontend
+    tag: v2                      # Tag de l'image
+    pullPolicy: IfNotPresent     # Politique de récupération de l'image
+  service:
+    port: 8082                   # Port exposé pour le service Frontend
+    targetPort: 8000             # Port cible sur lequel le Frontend écoute
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "100Mi"
+    limits:
+      cpu: "200m"
+      memory: "200Mi"
+
+# Configuration pour la base de données
+database:
+  image:
+    repository: postgres         # Repository de l'image PostgreSQL
+    tag: latest                  # Tag de l'image
+    pullPolicy: IfNotPresent     # Politique de récupération de l'image
+  service:
+    port: 5432                   # Port exposé pour la base de données
+    targetPort: 5432             # Port cible sur lequel la base de données écoute
+    type: ClusterIP  
+  env:
+    name: mydatabase             # Nom de la base de données
+    user: super                  # Nom d'utilisateur PostgreSQL
+    password: super              # Mot de passe PostgreSQL
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "100Mi"
+    limits:
+      cpu: "200m"
+      memory: "200Mi"
+
+# Configuration du ConfigMap (ajouté pour l'exemple, selon votre besoin)
+config:
+  DATABASE_HOST: "localhost"   # Adresse de la base de données pour les applications
+  DATABASE_PORT: 5432          # Port de la base de données
+  DATABASE_NAME: mydatabase    # Nom de la base de données
+  DATABASE_USER: super         # Nom d'utilisateur pour la base de données
+  DATABASE_PASSWORD: super     # Mot de passe pour la base de données
+
+# Configuration de l'Ingress
+ingress:
+  enabled: true                          # Activer l'Ingress
+  host: "django.super.csc8567.luxbulb.org"  # Nom d'hôte pour l'Ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+
+# Configuration pour les comptes de service
+serviceAccount:
+  create: true  # Créer un ServiceAccount si nécessaire
+  name: ""      # Laisser vide pour générer un nom automatiquement
+
+# Configuration de l'autoscaling
+autoscaling:
+  enabled: false  # Désactiver l'autoscaling
