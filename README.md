@@ -135,3 +135,40 @@ kubectl apply -f ingress_defi4.yaml -n u-8ttzx
 
     **Navigateur :**  https://django.super.csc8567.luxbulb.org/
 
+
+## Défi 5 :
+
+**Création des deux images docker** :
+
+``` 
+docker push ithiam/frontend:v2
+
+docker push ithiam/api:v2
+
+```
+
+**Edition des fichiers des deployments** :   
+      
+      - frontend.yaml
+      - api.yaml
+      - postgresql.yam
+      
+**Edition du fichier de l'Ingres** :
+
+      - ingress_defi5.yaml
+
+**Déploiment** :
+
+```
+ kubectl apply -f frontend.yaml 
+
+ kubectl apply -f api.yaml 
+
+ kubectl apply -f postgresql.yaml 
+
+ kubectl apply -f ingress.yaml
+
+ ```
+
+
+
