@@ -137,6 +137,7 @@ kubectl apply -f ingress_defi4.yaml -n u-8ttzx
 
     **Navigateur :**  https://django.super.csc8567.luxbulb.org/
 
+![Schema défi 3](defi4.png)
 
 ## Défi 5 :
 
