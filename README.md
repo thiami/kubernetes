@@ -23,7 +23,7 @@ tcp        0      0 0.0.0.0:5000            0.0.0.0:*               LISTEN
 
 ``` kubectl port-forward pods/defi1-bc65795db-cwwd9 8080:5000 -n u-8ttzx ```
 
-![Schema défi 1](schema_defi_1.jpg)
+![Schema défi 1](defi1.png)
 
 ## Défi 2 :
 
@@ -172,6 +172,6 @@ docker push ithiam/api:v2
  kubectl apply -f ingress.yaml
 
  ```
-
+![Schema défi 3](defi4.png)
 
 
