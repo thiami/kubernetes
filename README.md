@@ -23,7 +23,7 @@ tcp        0      0 0.0.0.0:5000            0.0.0.0:*               LISTEN
 
 ``` kubectl port-forward pods/defi1-bc65795db-cwwd9 8080:5000 -n u-8ttzx ```
 
-
+![Schema défi 1](schema_defi_1.jpg)
 
 ## Défi 2 :
 
@@ -62,6 +62,9 @@ kubectl proxy
 - Quelle est la différence entre les services ClusterIP et NodePort ?
      - **ClusterIP** : Il expose le service à l'intérieur du cluster uniquement, rendant le service accessible uniquement depuis les autres ressources du cluster.
      - **NodePort** : Il expose le service en dehors du cluster en attribuant un port statique sur chaque nœud du cluster, permettant ainsi l'accès au service via une IP externe du nœud et le port attribué.
+
+![Schema défi 2](schema_defis2.jpg)
+
 
 ## Défi 3 :
 
@@ -113,6 +116,22 @@ kubectl proxy
       Utiliser un Pod pour déployer une base de données n'est pas idéal, car les Pods sont éphémères et peuvent être détruits ou redémarrés, ce qui entraînerait la perte des données stockées à l'intérieur. Les bases de données ont besoin de persistance et de haute disponibilité, ce que les Pods ne garantissent pas. 
 
   - Sur quel type de ressource KubeDNS crée des entrées ? Quelle information propre a la ressource est utilisée ?
-  
+
       KubeDNS génère des entrées DNS pour les services déployés dans Kubernetes. Chaque service reçoit une adresse DNS permettant aux autres Pods ou services du même cluster de le localiser facilement. 
       Cela permet aux applications du cluster de communiquer entre elles en utilisant des noms de services au lieu d’adresses IP, simplifiant ainsi la gestion des connexions.
+
+## Défi 4 :
+
+**Edition du fichier ingress_defi4.yaml**
+
+**Création de l'Ingress** :
+
+```
+kubectl apply -f ingress_defi4.yaml -n u-8ttzx
+
+```
+
+**Connection au site :**
+
+    **Navigateur :**  https://django.super.csc8567.luxbulb.org/
+

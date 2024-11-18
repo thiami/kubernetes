@@ -6,7 +6,7 @@ metadata:
   labels:
     app: defi3
 spec:
-  replicas: 3                                # Nombre de répliques de pods Django
+  replicas: 3                                
   selector:
     matchLabels:
       app: defi3
@@ -21,28 +21,27 @@ spec:
     spec:
       containers:
       - name: defi3
-        image: ithiam/site_django:v4          # Image Docker de l'application Django
+        image: ithiam/site_django:v4          
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 8000                 # Port interne de l'application Django
+        - containerPort: 8000                
         env:
         - name: DATABASE_HOST
-          value: postgresql                   # Nom du service PostgreSQL
+          value: postgresql                  
         - name: DATABASE_PORT
-          value: "5432"                       # Port PostgreSQL par défaut
-        - name: DATABASE_NAME
-          value: mydatabase                   # Nom de la base de données
+          value: "5432"                       
+          value: mydatabase                   
         - name: DATABASE_USER
-          value: super                        # Nom d'utilisateur de la base de données
+          value: super                        
         - name: DATABASE_PASSWORD
-          value: super                        # Mot de passe de la base de données
+          value: super                        
         resources:
           requests:
-            cpu: "100m"                       # Requête minimale : 1/10 CPU
-            memory: "100Mi"                   # Requête minimale : 100 Mo de RAM
+            cpu: "100m"                       
+            memory: "100Mi"                   
           limits:
-            cpu: "200m"                       # Limite maximale : 1/5 CPU
-            memory: "200Mi"                   # Limite maximale : 200 Mo de RAM
+            cpu: "200m"                       
+            memory: "200Mi"                   
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
@@ -63,4 +62,4 @@ spec:
     - protocol: TCP
       port: 8080                             # Port exposé par le service dans le cluster
       targetPort: 8000                       # Port de l'application Django dans le conteneur
-  type: ClusterIP                             # Type de service pour l'accès interne uniquement
+  type: ClusterIP                           
