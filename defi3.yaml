@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: defi3
-        image: ithiam/site_django:v4          
+        image: ithiam/site_django:v5          
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8000                

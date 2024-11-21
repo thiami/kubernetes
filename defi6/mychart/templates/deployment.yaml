@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}-api
-  namespace: {{ .Values.global.namespace }}
+  namespace: u-8ttzx
   labels:
     app: api
 spec:
@@ -47,7 +47,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Release.Name }}-api-service
-  namespace: {{ .Values.global.namespace }}
+  namespace: u-8ttzx
 spec:
   selector:
     app: api
@@ -63,7 +63,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}-frontend
-  namespace: {{ .Values.global.namespace }}
+  namespace: 
   labels:
     app: frontend
 spec:
@@ -107,7 +107,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Release.Name }}-frontend-service
-  namespace: {{ .Values.global.namespace }}
+  namespace: u-8ttzx
 spec:
   selector:
     app: frontend
@@ -123,7 +123,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}-db
-  namespace: {{ .Values.global.namespace }}
+  namespace: u-8ttzx
   labels:
     app: db
 spec:
@@ -163,7 +163,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ .Release.Name }}-db-service
-  namespace: {{ .Values.global.namespace }}
+  namespace: u-8ttzx
 spec:
   selector:
     app: db

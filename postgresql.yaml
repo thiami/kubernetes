@@ -17,16 +17,18 @@ spec:
     spec:
       containers:
       - name: postgres
-        image: postgres:latest
+        image: postgres:16
         ports:
         - containerPort: 5432
         env:
-        - name: POSTGRES_DB
+        - name: DATABASE_NAME
           value: "mydatabase"
-        - name: POSTGRES_USER
+        - name: DATABASE_USER
           value: "super"
-        - name: POSTGRES_PASSWORD
+        - name: DATABASE_PASSWORD
           value: "super"
+        - name: POSTGRES_PASSWORD          
+          value: "super"           
         resources:
           requests:
             cpu: "100m"

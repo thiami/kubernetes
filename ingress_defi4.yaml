@@ -4,7 +4,7 @@ metadata:
   name: defi4-ingress               
   namespace: u-8ttzx                 
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /   
+    nginx.ingress.kubernetes.io/rewrite-target: /  
 spec:
   rules:
   - host: "django.super.csc8567.luxbulb.org"  
@@ -17,3 +17,5 @@ spec:
             name: defi3-service            # Le service créé au défi 3
             port:
               number: 8080                 # Le port exposé par le service defi3-service
+              
+

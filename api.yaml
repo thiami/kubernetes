@@ -21,10 +21,10 @@ spec:
     spec:
       containers:
       - name: api-container
-        image: ithiam/api:v2            # Nouvelle image Docker de l'application API
+        image: ithiam/api:12        
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 8000                 # Port interne de l'application API
+        - containerPort: 8000                
         env:
         - name: DATABASE_HOST
           value: db-service                   # Nom du service PostgreSQL

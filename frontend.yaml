@@ -21,21 +21,21 @@ spec:
     spec:
       containers:
       - name: public-container
-        image: ithiam/frontend:v2         # Nouvelle image Docker de l'application Public
+        image: ithiam/frontend:11  
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 8000                 # Port interne de l'application Public
+        - containerPort: 8000                 
         env:
         - name: DATABASE_HOST
-          value: db-service                   # Nom du service PostgreSQL
+          value: "db-service"                   
         - name: DATABASE_PORT
           value: "5432"
         - name: DATABASE_NAME
-          value: mydatabase
+          value: "mydatabase"
         - name: DATABASE_USER
-          value: super
+          value: "super"
         - name: DATABASE_PASSWORD
-          value: super
+          value: "super"
         resources:
           requests:
             cpu: "100m"
